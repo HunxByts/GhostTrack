@@ -148,7 +148,7 @@ elif input_user == '2': #OPSI 2
             print(f"\n {Wh}Location             :{Gr} {location}")
             print(f" {Wh}Region Code          :{Gr} {region_code}")
             print(f" {Wh}Timezone             :{Gr} {timezoneF}")
-            print(f" {Wh}Jenis Provider       :{Gr} {jenis_provider}")
+            print(f" {Wh}Provider             :{Gr} {jenis_provider}")
             print(f" {Wh}Valid number         :{Gr} {is_valid_number}")
             print(f" {Wh}Possible number      :{Gr} {is_possible_number}")
             print(f" {Wh}International format :{Gr} {formatted_number}")
