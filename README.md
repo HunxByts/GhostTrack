@@ -25,7 +25,7 @@ python3 GhostTR.py
 
 Display on the menu ```IP Tracker```
 
-<img src=" " />
+<img src="https://github.com/HunxByts/GhostTrack/blob/main/asset/ip.png " />
 
 on the IP Track menu, you can combo with the seeker tool to get the target IP
 <details>
@@ -35,9 +35,10 @@ on the IP Track menu, you can combo with the seeker tool to get the target IP
 
 Display on the menu ```Phone Track```
 
-<img src=" " />
+<img src="https://github.com/HunxByts/GhostTrack/blob/main/asset/phone.png" />
 
 on this menu you can search for information from the target phone number
+
 
 <details>
 <summary>:zap: Author :</summary>
