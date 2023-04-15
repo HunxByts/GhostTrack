@@ -141,8 +141,8 @@ elif input_user == '2': #OPSI 2
             formatted_number = phonenumbers.format_number(parsed_number, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
             formatted_number_for_mobile = phonenumbers.format_number_for_mobile_dialing(parsed_number, default_region, with_formatting=True)
             number_type = phonenumbers.number_type(parsed_number)
-            timezone = timezone.time_zones_for_number(parsed_number)
-            timezoneF = ', '.join(timezone)
+            timezone1 = timezone.time_zones_for_number(parsed_number)
+            timezoneF = ', '.join(timezone1)
 
             print(f" {Wh}========== {Gr}SHOW INFORMATION PHONE NUMBERS {Wh}==========")
             print(f"\n {Wh}Location             :{Gr} {location}")
