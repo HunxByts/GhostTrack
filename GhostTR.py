@@ -129,8 +129,8 @@ elif input_user == '2': #OPSI 2
 
     try:
         def phoneGW():
-            User_phone = input(f"\n {Wh}Masukkan nomor telepon: {Gr}") #INPUT NUMBER PHONE
-            default_region = "ID" #DEFAULT NEGARA
+            User_phone = input(f"\n {Wh}Enter phone number target : {Gr}") #INPUT NUMBER PHONE
+            default_region = "ID" #DEFAULT NEGARA INDONESIA
 
             parsed_number = phonenumbers.parse(User_phone, default_region) # VARIABLE PHONENUMBERS
             region_code = phonenumbers.region_code_for_number(parsed_number)
@@ -144,7 +144,7 @@ elif input_user == '2': #OPSI 2
             timezone1 = timezone.time_zones_for_number(parsed_number)
             timezoneF = ', '.join(timezone1)
 
-            print(f" {Wh}========== {Gr}SHOW INFORMATION PHONE NUMBERS {Wh}==========")
+            print(f"\n {Wh}========== {Gr}SHOW INFORMATION PHONE NUMBERS {Wh}==========")
             print(f"\n {Wh}Location             :{Gr} {location}")
             print(f" {Wh}Region Code          :{Gr} {region_code}")
             print(f" {Wh}Timezone             :{Gr} {timezoneF}")
