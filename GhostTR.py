@@ -25,19 +25,20 @@ Cy='\033[1;36m'
 Wh='\033[1;37m'
 
 #BANNER TOOLS
+os.system('clear')
 stderr.writelines(f"""{Gr}
    ________               __      ______                __  
   / ____/ /_  ____  _____/ /_    /_  __/________ ______/ /__
  / / __/ __ \/ __ \/ ___/ __/_____/ / / ___/ __ `/ ___/ //_/
 / /_/ / / / / /_/ (__  ) /_/_____/ / / /  / /_/ / /__/ ,<   
-\____/_/ /_/\____/____/\__/     /_/ /_/   \__,_/\___/_/|_|  
+\____/_/ /_/\____/____/\__/     /_/ /_/   \__,_/\___/_/|_| 
 
           {Wh}[ + ]  C O D E   B Y  H U N X  [ + ]  
         
     {Wh}[ 1 ] {Gr}IP Tracker
-
-    {Wh}[ 2 ] {Gr}Phone Tracker
-
+    {Wh}[ 2 ] {Gr}Show Your IP
+    {Wh}[ 3 ] {Gr}Phone Tracker
+    {Wh}[ 4 ] {Gr}Username Tracker
     {Wh}[ 0 ] {Gr}Exit
 """)
 
@@ -48,7 +49,6 @@ if input_user == '1': #OPSI 1
     os.system('clear')
     time.sleep(1)
     stderr.writelines(f"""{Wh}
-
      .-.
    .'   `.          {Wh}--------------------------------
    :g g   :         {Wh}| {Gr}GHOST - TRACKER - IP ADDRESS {Wh}|
@@ -68,7 +68,7 @@ if input_user == '1': #OPSI 1
         def IP_Track():
             ip = input(f"{Wh}\n Enter IP target : {Gr}") #INPUT IP ADDRESS
             print()
-            print(f'{Wh}============= {Gr}SHOW INFORMATION IP ADDRESS {Wh}=============')
+            print(f' {Wh}============= {Gr}SHOW INFORMATION IP ADDRESS {Wh}=============')
             req_api = requests.get(f"http://ipwho.is/{ip}") #API IPWHOIS.IS
             ip_data = json.loads(req_api.text)
             time.sleep(2)
@@ -107,11 +107,10 @@ if input_user == '1': #OPSI 1
     except KeyboardInterrupt:
         print(f" {Wh}[{Ye}!{Wh}] {Ye}PROGRAM STOPPED...")
 
-elif input_user == '2': #OPSI 2
+elif input_user == '3': #OPSI 2
     os.system('clear')
     time.sleep(1)
     stderr.writelines(f"""{Wh}
-
      .-.
    .'   `.          {Wh}----------------------------------
    :g g   :         {Wh}| {Gr}GHOST - TRACKER - PHONE NUMBER {Wh}|
@@ -168,7 +167,106 @@ elif input_user == '2': #OPSI 2
     except KeyboardInterrupt:
         print(f" {Wh}[{Ye}!{Wh}] {Ye}PROGRAM STOPPED...")
     
-elif input_user == '0': #OPSI 3
+elif input_user == '2': #OPSI 3
+    os.system('clear')
+    time.sleep(1)
+    stderr.writelines(f"""{Wh}
+     .-.
+   .'   `.          {Wh}----------------------------------
+   :g g   :         {Wh}|  {Gr}GHOST - SHOW YOUR IP ADDRESS  {Wh}|
+   : o    `.        {Wh}|        {Gr}@CODE BY HUNXBYTS       {Wh}|
+  :         ``.     {Wh}----------------------------------
+ :             `.
+:  :         .   `.
+:   :          ` . `.
+ `.. :            `. ``;
+    `:;             `:'
+       :              `.
+        `.              `.     .
+          `'`'`'---..,___`;.-'
+""")
+
+    try:
+        def showIP():
+            respone = requests.get('https://api.ipify.org/')
+            Show_IP = respone.text
+            
+            print(f"\n {Wh}========== {Gr}SHOW INFORMATION YOUR IP {Wh}==========")
+            print(f"\n {Wh}[{Gr} + {Wh}] Your IP Adrress : {Gr}{Show_IP}")
+            print(f"\n {Wh}==============================================")
+        if __name__ == '__main__':
+            showIP()
+    except KeyboardInterrupt:
+        print(f" {Wh}[{Ye}!{Wh}] {Ye}PROGRAM STOPPED...")
+
+
+
+elif input_user == '4':
+    os.system('clear')
+    time.sleep(1)
+    stderr.writelines(f"""{Wh}
+     .-.
+   .'   `.          {Wh}----------------------------------
+   :g g   :         {Wh}|    {Gr}GHOST - TRACKER USERNAME    {Wh}|
+   : o    `.        {Wh}|        {Gr}@CODE BY HUNXBYTS       {Wh}|
+  :         ``.     {Wh}----------------------------------
+ :             `.
+:  :         .   `.
+:   :          ` . `.
+ `.. :            `. ``;
+    `:;             `:'
+       :              `.
+        `.              `.     .
+          `'`'`'---..,___`;.-'
+""")
+    try:
+        def TrackLu(username):
+            results = {}
+            social_media = [
+            {"url": "https://www.facebook.com/{}", "name": "Facebook"},
+            {"url": "https://www.twitter.com/{}", "name": "Twitter"},
+            {"url": "https://www.instagram.com/{}", "name": "Instagram"},
+            {"url": "https://www.linkedin.com/in/{}", "name": "LinkedIn"},
+            {"url": "https://www.github.com/{}", "name": "GitHub"},
+            {"url": "https://www.pinterest.com/{}", "name": "Pinterest"},
+            {"url": "https://www.tumblr.com/{}", "name": "Tumblr"},
+            {"url": "https://www.youtube.com/{}", "name": "Youtube"},
+            {"url": "https://soundcloud.com/{}", "name": "SoundCloud"},
+            {"url": "https://www.snapchat.com/add/{}", "name": "Snapchat"},
+            {"url": "https://www.tiktok.com/@{}", "name": "TikTok"},
+            {"url": "https://www.behance.net/{}", "name": "Behance"},
+            {"url": "https://www.medium.com/@{}", "name": "Medium"},
+            {"url": "https://www.quora.com/profile/{}", "name": "Quora"},
+            {"url": "https://www.flickr.com/people/{}", "name": "Flickr"},
+            {"url": "https://www.periscope.tv/{}", "name": "Periscope"},
+            {"url": "https://www.twitch.tv/{}", "name": "Twitch"},
+            {"url": "https://www.dribbble.com/{}", "name": "Dribbble"},
+            {"url": "https://www.stumbleupon.com/stumbler/{}", "name": "StumbleUpon"},
+            {"url": "https://www.ello.co/{}", "name": "Ello"},
+            {"url": "https://www.producthunt.com/@{}", "name": "Product Hunt"},
+            {"url": "https://www.snapchat.com/add/{}", "name": "Snapchat"},
+            {"url": "https://www.telegram.me/{}", "name": "Telegram"},
+            {"url": "https://www.weheartit.com/{}", "name": "We Heart It"}
+            ]
+
+            for site in social_media:
+                url = site['url'].format(username)
+                response = requests.get(url)
+                if response.status_code == 200:
+                    results[site['name']] = url
+                else:
+                    results[site['name']] = (f"{Ye}Username not found {Ye}!")
+            return results
+        username = input(f"\n {Wh}Enter Username : {Gr}")
+        print(f"\n {Wh}========== {Gr}SHOW INFORMATION USERNAME {Wh}==========")
+        print()
+        results = TrackLu(username)
+        for site, url in results.items():
+            print(f" {Wh}[ {Gr}+ {Wh}] {site} : {Gr}{url}")
+    except KeyboardInterrupt:
+        print(f" {Wh}[{Ye}!{Wh}] {Ye}PROGRAM STOPPED...")
+
+elif input_user == '0':
     print(f"\n  {Wh}[{Ye}!{Wh}] {Ye}THANK'S FOR USING TOOL {Ye}GHOST-TRACK !")
 else:
     print(f" {Ye}Opss no option !") #FALSE
