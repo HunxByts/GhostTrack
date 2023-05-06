@@ -1,7 +1,10 @@
 # GhostTrack
 Useful tool to track location or mobile number, so this tool can be called osint or also information gathering
 
-<img src="https://github.com/HunxByts/GhostTrack/blob/main/asset/GhTR.png"/>
+<img src="https://github.com/HunxByts/GhostTrack/blob/main/asset/bn.png"/>
+
+New update :
+```Version 2.2```
 
 ### Instalation on Linux (deb)
 ```
@@ -39,6 +42,10 @@ Display on the menu ```Phone Tracker```
 
 on this menu you can search for information from the target phone number
 
+Display on the menu ```Username Tracker```
+
+<img src="https://github.com/HunxByts/GhostTrack/blob/main/asset/User.png"/>
+on this menu you can search for information from the target username on social media
 
 <details>
 <summary>:zap: Author :</summary>
