@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>GhostTrack — Open-source intelligence tools</title>
+  <link rel="stylesheet" href="/assets/style.css">
+  <script defer src="/assets/app.js"></script>
+</head>
+<body data-mode="public">
+  <div class="site">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="GhostTrack home"><span class="brand-mark">G<span>✦</span></span><span>GHOST<span class="brand-faint">TRACK</span></span></a>
+      <div class="topbar-right"><span class="tag">PUBLIC WORKSPACE</span><span id="system-indicator" class="status">Checking status…</span></div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="eyebrow">RECONNAISSANCE / PUBLIC METADATA</div>
+        <h1>Explore public signals.<br><span class="muted">Not private locations.</span></h1>
+        <p class="intro">Look up IP geolocation, numbering-plan details and public profile links. Designed for responsible OSINT, with transparent confidence labels.</p>
+      </section>
+      <div class="notice" id="availability" role="status" aria-live="polite">Checking whether public access is enabled…</div>
+      <section class="workspace" id="workspace" hidden>
+        <aside class="tool-nav" aria-label="Lookup tools">
+          <div class="nav-heading">TOOLS <span>03</span></div>
+          <button class="tool active" data-tool="ip" type="button"><span class="tool-icon">◎</span><span>IP intelligence<small>Geolocation · network</small></span></button>
+          <button class="tool" data-tool="phone" type="button"><span class="tool-icon">⌗</span><span>Phone metadata<small>Region · carrier · format</small></span></button>
+          <button class="tool" data-tool="username" type="button"><span class="tool-icon">@</span><span>Username discovery<small>Public profile links</small></span></button>
+          <div class="nav-disclaimer">Public data only. No private GPS tracking, identity verification, or account ownership claims.</div>
+        </aside>
+        <div class="primary-panel">
+          <div class="panel-header"><div><span class="micro">LOOKUP MODULE <span id="module-number">01</span></span><h2 id="tool-title">IP intelligence</h2><p id="tool-desc">Approximate geographical and network details for globally routable IP addresses.</p></div><span class="live-dot" aria-label="Lookup tool"></span></div>
+          <form id="lookup-form" autocomplete="off">
+            <label for="lookup-value" id="lookup-label">PUBLIC IP ADDRESS</label>
+            <div class="search-line"><input id="lookup-value" name="value" maxlength="80" placeholder="e.g. 8.8.8.8" required spellcheck="false"><button class="primary" type="submit" id="lookup-submit">Run lookup <span aria-hidden="true">↗</span></button></div>
+            <div class="input-controls">
+              <div id="region-wrap" hidden><label for="region">COUNTRY FOR LOCAL NUMBERS</label><select id="region"><option value="ID">Indonesia (ID)</option><option value="MY">Malaysia (MY)</option><option value="US">United States (US)</option><option value="GB">United Kingdom (GB)</option><option value="SG">Singapore (SG)</option><option value="AU">Australia (AU)</option><option value="IN">India (IN)</option></select></div>
+              <label class="checkbox-label" id="username-wrap" hidden><input id="check-profiles" type="checkbox" checked> Verify GitHub / GitLab via public API</label>
+            </div>
+          </form>
+          <div class="results" aria-live="polite"><div class="results-title"><span>RESULTS</span><span id="result-status">AWAITING INPUT</span></div><div id="results-content" class="empty">Choose a lookup and enter a value above to begin.</div></div>
+        </div>
+      </section>
+      <footer class="footer"><span>GHOSTTRACK // PUBLIC SIGNALS</span><span>Privacy-first · no search history · rate limited</span></footer>
+    </main>
+  </div>
+</body>
+</html>

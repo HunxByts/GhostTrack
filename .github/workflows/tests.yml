@@ -1,0 +1,20 @@
+name: Python and web tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install -r web-requirements.txt 'httpx>=0.27,<1'
+      - run: python -m unittest discover -s tests -v
+      - run: python GhostTR.py --help

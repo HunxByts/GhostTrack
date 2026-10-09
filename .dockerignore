@@ -1,0 +1,16 @@
+.git
+.github
+.venv
+.gitignore
+.secrets
+.data
+.local-dev
+__pycache__
+*.pyc
+asset
+tests
+README.md
+DOCKER-SETUP.md
+WEB-DEPLOYMENT.md
+compose.yaml
+openguide

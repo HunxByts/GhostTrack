@@ -1,0 +1,84 @@
+# The CLI remains an independent, interactive service.
+x-ghosttrack-web: &ghosttrack-web
+  image: ghosttrack-web:local
+  build:
+    context: .
+    dockerfile: Dockerfile.web
+  read_only: true
+  tmpfs:
+    - /tmp:rw,noexec,nosuid,size=16m
+  cap_drop:
+    - ALL
+  security_opt:
+    - no-new-privileges:true
+  pids_limit: 80
+  mem_limit: 384m
+  restart: unless-stopped
+  volumes:
+    - ./.data:/data
+
+services:
+  ghosttrack:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghosttrack:local
+    stdin_open: true
+    tty: true
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 64
+    mem_limit: 256m
+    restart: "no"
+    profiles: ["cli"]
+    # docker compose --profile cli run --rm ghosttrack
+
+  ghosttrack-admin:
+    <<: *ghosttrack-web
+    command:
+      - uvicorn
+      - ghosttrack.web.api:make_admin_app
+      - --factory
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8001"
+      - --no-proxy-headers
+      - --no-access-log
+    ports:
+      # Always local-only. SSH or Tailscale tunnel from your browser.
+      - "127.0.0.1:8001:8001"
+    volumes:
+      - ./.data:/data
+      - ./.secrets:/run/secrets:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/healthz',timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  ghosttrack-public:
+    <<: *ghosttrack-web
+    command:
+      - uvicorn
+      - ghosttrack.web.api:public_app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
+      - --no-proxy-headers
+      - --no-access-log
+    ports:
+      # Defaults to loopback. Set GHOSTTRACK_PUBLIC_BIND=0.0.0.0 only after
+      # configuring a trusted HTTPS reverse proxy and perimeter controls.
+      - "${GHOSTTRACK_PUBLIC_BIND:-127.0.0.1}:8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

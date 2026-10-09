@@ -1,0 +1,13 @@
+# Development artifacts
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+*.egg-info/
+.DS_Store
+# Administrator secrets, never commit or send to browser
+.secrets/
+.env
+.data/
+.local-dev/

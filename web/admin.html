@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>GhostTrack — Private administration</title>
+  <link rel="stylesheet" href="/assets/style.css">
+  <script defer src="/assets/app.js"></script>
+</head>
+<body data-mode="admin">
+  <div class="site">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="GhostTrack administration"><span class="brand-mark">G<span>✦</span></span><span>GHOST<span class="brand-faint">TRACK</span></span></a>
+      <div class="topbar-right"><span class="tag tag-private">PRIVATE CONTROL PLANE</span><button id="logout" class="quiet" type="button" hidden>Sign out</button></div>
+    </header>
+    <main>
+      <section class="hero compact"><div class="eyebrow">ADMINISTRATOR / RESTRICTED</div><h1>Control center<span class="accent">.</span></h1><p class="intro">Manage public access, review anonymous usage totals, and run private lookups. The admin port should never be exposed to the public internet.</p></section>
+      <section id="login-section" class="login-card"><span class="micro">SECURE ACCESS</span><h2>Administrator login</h2><p>Use the password configured during setup. Sign-in sessions expire automatically.</p><form id="login-form"><label for="admin-password">ADMIN PASSWORD</label><input type="password" id="admin-password" required autocomplete="current-password" minlength="1"><button class="primary" type="submit">Unlock dashboard →</button></form><div id="login-message" role="alert" aria-live="assertive"></div></section>
+      <section id="admin-dashboard" hidden>
+        <div class="admin-grid">
+          <article class="stat-card"><div class="micro">PUBLIC INTERFACE</div><h2 id="public-state">Checking…</h2><p>Controls whether the separate public server accepts lookup requests.</p><button id="toggle-public" class="primary" type="button" disabled>Change access</button><small>Disabled by default, including after first deployment.</small></article>
+          <article class="stat-card"><div class="micro">SERVICE STATUS</div><h2>Isolated services</h2><p>The administrator and public website run on different host ports. Only publish the public port after configuring HTTPS and perimeter rate limiting.</p><span class="tag">ADMIN · AUTHENTICATED</span></article>
+          <article class="stat-card"><div class="micro">PRIVACY</div><h2>Aggregates only</h2><p>Search terms and visitor IPs are not saved in the GhostTrack database. Counters are grouped by date, interface, tool and outcome.</p></article>
+        </div>
+        <section class="admin-section"><div class="section-title"><div><span class="micro">ACTIVITY / UTC</span><h2>Usage overview</h2></div><button class="quiet" id="refresh-summary" type="button">Refresh ↻</button></div><div id="usage-summary" class="usage-summary">Loading aggregate counts…</div></section>
+        <section class="admin-section"><div class="section-title"><div><span class="micro">PRIVATE OPERATIONS</span><h2>Run an admin lookup</h2></div></div>
+          <div class="admin-tool-form">
+            <form id="admin-lookup-form"><label for="admin-tool">TOOL</label><select id="admin-tool"><option value="ip">IP intelligence</option><option value="phone">Phone metadata</option><option value="username">Username links</option><option value="my-ip">Server egress IP</option></select><label for="admin-value">VALUE</label><input id="admin-value" type="text" maxlength="80" placeholder="8.8.8.8"><label for="admin-region">PHONE REGION</label><select id="admin-region"><option value="ID">ID</option><option value="MY">MY</option><option value="US">US</option><option value="GB">GB</option><option value="SG">SG</option></select><button class="primary" type="submit">Run private lookup ↗</button></form>
+            <div class="results"><div class="results-title">PRIVATE RESULTS</div><div id="admin-results" class="empty">Lookup results appear here. Search inputs are never saved.</div></div>
+          </div>
+        </section>
+      </section>
+      <footer class="footer"><span>GHOSTTRACK // CONTROL PLANE</span><span>Private access · CSRF-protected · session limited</span></footer>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,2 +1,3 @@
-requests
-phonenumbers
+# Python 3.11+ recommended; compatible with the Python 3.12 Docker image.
+requests>=2.34.2,<3
+phonenumbers>=9.0.41,<10

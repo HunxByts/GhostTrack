@@ -1,0 +1,4 @@
+-r requirements.txt
+fastapi>=0.118,<1
+uvicorn>=0.37,<1
+itsdangerous>=2.2,<3
