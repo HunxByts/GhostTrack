@@ -51,3 +51,31 @@ on this menu you can search for information from the target username on social m
 <summary>:zap: Author :</summary>
 - <strong><a href="https://github.com/HunxByts">HunxByts</a></strong>
 </details>
+
+### Installation on Windows
+
+1. Install Python 3 from the official Python website.
+2. During installation, enable **Add python.exe to PATH**.
+3. Install Git for Windows.
+4. Open PowerShell and run:
+
+```powershell
+git clone https://github.com/HunxByts/GhostTrack.git
+cd GhostTrack
+python -m pip install -r requirements.txt
+python GhostTR.py
+```
+
+If `python` does not work, try:
+
+```powershell
+py GhostTR.py
+```
+
+### Ethical Usage
+
+This tool is intended for educational and authorized OSINT use only.
+
+Do not use it to track, identify, or investigate people without clear permission.
+
+Results from IP, phone number, and username lookups may be approximate, incomplete, or outdated.
