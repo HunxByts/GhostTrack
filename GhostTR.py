@@ -13,6 +13,7 @@ import os
 import phonenumbers
 from phonenumbers import carrier, geocoder, timezone
 from sys import stderr
+from username_tracker import search_username
 
 Bl = '\033[30m'  # VARIABLE BUAT WARNA CUYY
 Re = '\033[1;31m'
@@ -121,49 +122,50 @@ def phoneGW():
 @is_option
 def TrackLu():
     try:
-        username = input(f"\n {Wh}Enter Username : {Gr}")
-        results = {}
-        social_media = [
-            {"url": "https://www.facebook.com/{}", "name": "Facebook"},
-            {"url": "https://www.twitter.com/{}", "name": "Twitter"},
-            {"url": "https://www.instagram.com/{}", "name": "Instagram"},
-            {"url": "https://www.linkedin.com/in/{}", "name": "LinkedIn"},
-            {"url": "https://www.github.com/{}", "name": "GitHub"},
-            {"url": "https://www.pinterest.com/{}", "name": "Pinterest"},
-            {"url": "https://www.tumblr.com/{}", "name": "Tumblr"},
-            {"url": "https://www.youtube.com/{}", "name": "Youtube"},
-            {"url": "https://soundcloud.com/{}", "name": "SoundCloud"},
-            {"url": "https://www.snapchat.com/add/{}", "name": "Snapchat"},
-            {"url": "https://www.tiktok.com/@{}", "name": "TikTok"},
-            {"url": "https://www.behance.net/{}", "name": "Behance"},
-            {"url": "https://www.medium.com/@{}", "name": "Medium"},
-            {"url": "https://www.quora.com/profile/{}", "name": "Quora"},
-            {"url": "https://www.flickr.com/people/{}", "name": "Flickr"},
-            {"url": "https://www.periscope.tv/{}", "name": "Periscope"},
-            {"url": "https://www.twitch.tv/{}", "name": "Twitch"},
-            {"url": "https://www.dribbble.com/{}", "name": "Dribbble"},
-            {"url": "https://www.stumbleupon.com/stumbler/{}", "name": "StumbleUpon"},
-            {"url": "https://www.ello.co/{}", "name": "Ello"},
-            {"url": "https://www.producthunt.com/@{}", "name": "Product Hunt"},
-            {"url": "https://www.snapchat.com/add/{}", "name": "Snapchat"},
-            {"url": "https://www.telegram.me/{}", "name": "Telegram"},
-            {"url": "https://www.weheartit.com/{}", "name": "We Heart It"}
-        ]
-        for site in social_media:
-            url = site['url'].format(username)
-            response = requests.get(url)
-            if response.status_code == 200:
-                results[site['name']] = url
-            else:
-                results[site['name']] = (f"{Ye}Username not found {Ye}!")
-    except Exception as e:
-        print(f"{Re}Error : {e}")
+        username = input(f"\n {Wh}Enter Username : {Gr}").strip()
+    except (KeyboardInterrupt, EOFError):
         return
 
+    if not username:
+        print(f"\n {Wh}[ {Re}! {Wh}] {Re}Username cannot be empty")
+        return
+
+    print(f"\n {Wh}Searching across platforms for {Gr}@{username}{Wh}...")
     print(f"\n {Wh}========== {Gr}SHOW INFORMATION USERNAME {Wh}==========")
     print()
-    for site, url in results.items():
-        print(f" {Wh}[ {Gr}+ {Wh}] {site} : {Gr}{url}")
+
+    found_count = 0
+    not_found_count = 0
+    error_count = 0
+
+    def print_result(res):
+        nonlocal found_count, not_found_count, error_count
+        name = res["name"]
+        status = res["status"]
+        url = res["url"]
+        msg = res.get("message", "")
+
+        if status == "FOUND":
+            found_count += 1
+            print(f" {Wh}[ {Gr}+ {Wh}] {name} : {Gr}{url}")
+        elif status == "NOT_FOUND":
+            not_found_count += 1
+            print(f" {Wh}[ {Ye}- {Wh}] {name} : {Ye}{msg}")
+        elif status == "BLOCKED":
+            error_count += 1
+            print(f" {Wh}[ {Re}! {Wh}] {name} : {Re}{msg} {Wh}({url})")
+        elif status == "TIMEOUT":
+            error_count += 1
+            print(f" {Wh}[ {Re}! {Wh}] {name} : {Re}Timed out {Wh}({url})")
+        else:
+            error_count += 1
+            print(f" {Wh}[ {Re}! {Wh}] {name} : {Re}{msg} {Wh}({url})")
+
+    search_username(username, callback=print_result)
+
+    print(f"\n {Wh}--------------------------------------------------")
+    print(f" {Wh}Summary: {Gr}{found_count} Found {Wh}| {Ye}{not_found_count} Not Found {Wh}| {Re}{error_count} Flagged/Unresponsive")
+    print(f" {Wh}==================================================")
 
 
 @is_option
@@ -259,7 +261,7 @@ def is_in_options(num):
 def option():
     # BANNER TOOLS
     clear()
-    stderr.writelines(f"""
+    stderr.writelines(rf"""
        ________               __      ______                __  
       / ____/ /_  ____  _____/ /_    /_  __/________ ______/ /__
      / / __/ __ \/ __ \/ ___/ __/_____/ / / ___/ __ `/ ___/ //_/
