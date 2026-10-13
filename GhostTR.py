@@ -36,6 +36,26 @@ def is_option(func):
     return wrapper
 
 
+# session for the username tracker: browser UA, timeouts and automatic retries
+def _build_session():
+    from requests.adapters import HTTPAdapter
+    from urllib3.util.retry import Retry
+
+    session = requests.Session()
+    session.headers.update({
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+        "Accept-Language": "en-US,en;q=0.9",
+    })
+    retry = Retry(total=2, connect=2, read=2, backoff_factor=0.8,
+                  status_forcelist=(429, 500, 502, 503, 504),
+                  allowed_methods=frozenset(["GET"]))
+    adapter = HTTPAdapter(max_retries=retry, pool_connections=8, pool_maxsize=8)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    return session
+
+
 # FUNCTIONS FOR MENU
 @is_option
 def IP_Track():
@@ -149,13 +169,20 @@ def TrackLu():
             {"url": "https://www.telegram.me/{}", "name": "Telegram"},
             {"url": "https://www.weheartit.com/{}", "name": "We Heart It"}
         ]
+        session = _build_session()
         for site in social_media:
             url = site['url'].format(username)
-            response = requests.get(url)
-            if response.status_code == 200:
-                results[site['name']] = url
-            else:
-                results[site['name']] = (f"{Ye}Username not found {Ye}!")
+            try:
+                response = session.get(url, timeout=(5, 10), allow_redirects=True)
+                if response.status_code == 200:
+                    results[site['name']] = url
+                elif response.status_code in (403, 429, 999):
+                    results[site['name']] = (f"{Ye}Blocked by the site (HTTP {response.status_code}){Ye}")
+                else:
+                    results[site['name']] = (f"{Ye}Username not found {Ye}!")
+            except requests.exceptions.RequestException as e:
+                results[site['name']] = (f"{Re}Connection failed ({type(e).__name__}), possibly blocked by network or site{Ye}")
+            time.sleep(0.5)  # gentle pace to avoid being rate-limited
     except Exception as e:
         print(f"{Re}Error : {e}")
         return
